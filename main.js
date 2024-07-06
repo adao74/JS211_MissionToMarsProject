@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('assert');
 
-// This is an object that has types of jobs and the values each provide.
+// This is an object that has types of jobs and the values each provide.  => Why was this needed? 
 const jobTypes = {
   pilot: 'MAV',
   mechanic: 'Repair Ship',
@@ -11,15 +11,41 @@ const jobTypes = {
 
 // Your code will go here
 
+class CrewMember {
+  constructor(name, job, specialSkill) {
+    this.name = name;
+    this.job = job;
+    this.specialSkill = specialSkill;
+    this.ship;
+  }
+
+  enterShip (ship) {
+    this.ship = ship;
+    this.ship.crew[this.ship.crew.length] = this;  // Note: can't just do crew.length (crew is not global variable, need context!)
+  };
+  
+}
+
+class Ship {
+  constructor(name, type, ability) {
+    this.name = name;
+    this.type = type;
+    this.ability = ability;
+    this.crew = [];
+  }
+
+  missionStatement () {
+    if (this.crew.length > 0) {
+      return this.ability
+    } else {
+      return "Can't perform a mission yet."
+    }
+  }
+}
 
 
 
 
-
-
-// Begin by reading the tests and building a function that will full each one.
-// As you build, you might not have to build them in order, maybe you do...
-// These are the tests
 if (typeof describe === 'function'){
   describe('CrewMember', function(){
     it('should have a name, a job, a specialSkill and ship upon instantiation', function(){
